@@ -155,24 +155,24 @@ class BbbCallService {
 
     def urlEncode(String s) {
         try {
-            return encode(s, "UTF-8");
+            return encode(s, "UTF-8")
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
-        return "";
+        return ""
     }
 
     //
     // checksum() -- Return a checksum based on SHA-1 digest
     //
     def getChecksum(String s) {
-        String checksum = "";
+        String checksum = ""
         try {
-            checksum = org.apache.commons.codec.digest.DigestUtils.shaHex(s);
+            checksum = org.apache.commons.codec.digest.DigestUtils.shaHex(s)
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
-        return checksum;
+        return checksum
     }
 }
 
