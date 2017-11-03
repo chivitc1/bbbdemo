@@ -19,7 +19,31 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="course" />
+
+            <g:form >
+                <fieldset class="form">
+                    <div class="fieldcontain required">
+                        <label for="name">Name: </label>
+                        <span id="name">${course?.name}</span>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="startingTime">Starting Date: </label>
+                        <span id="startingTime" >${course?.startingTime}</span>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="teacher">Teacher: </label>
+                        <span id="teacher" >${course?.teacher}</span>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="room">Room: </label>
+                        <span id="room" >${course?.room}</span>
+                    </div>
+                </fieldset>
+            </g:form>
+
             <g:form resource="${this.course}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.course}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

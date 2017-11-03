@@ -1,14 +1,17 @@
 package inet
 
+import org.hibernate.criterion.CriteriaSpecification
+
 class Course {
 
     String name
     String description
     Date startingTime
     User teacher
-    Room room
+//    Room room
 
     static hasMany = [attendees: User]
+    static hasOne = [room: Room]
 
     static constraints = {
         name blank: false
@@ -18,7 +21,8 @@ class Course {
         room nullable: true
         attendees nullable: true
     }
-    static mappedBy = [ room: "name", teacher: "fullName" ]
+    static belongsTo = [room: Room]
+//    static mappedBy = [ room: "name", teacher: "fullName" ]
 
     static hasAttendee(loginId, courseId) {
         def course = Course.get(courseId)
@@ -30,12 +34,32 @@ class Course {
     }
 
     static String getRole(loginId, Course course) {
-        if(course?.teacher.loginId == loginId)
+        if(course?.teacher?.loginId == loginId)
             return UtilService.ROLE_MODERATOR
         else if(course?.attendees*.loginId.contains(loginId))
             return UtilService.ROLE_ATTENDEE
         else
             return "ROLE_GUEST"
+    }
+
+    static getAvailableTeachers(){
+        def teachers = User.list()
+        return teachers
+    }
+
+    static getAvailableRooms(){
+        def rooms = Room.createCriteria().list {
+
+            createAlias(
+                    "course",
+                    "c",
+                    CriteriaSpecification.LEFT_JOIN
+            )
+            and{
+                isNull('c.id')
+            }
+        }
+        return rooms
     }
 
 }

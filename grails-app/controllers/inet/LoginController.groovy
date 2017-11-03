@@ -21,8 +21,45 @@ class LoginController {
         redirect(uri: '/')
 
     }
-    def register() {
-
+    def registerForm() {
+        render view: "registerForm", model: [user: new AccountCommand()]
     }
 
+    def register(AccountCommand ac) {
+
+        if(ac.hasErrors()) {
+            render view: "registerForm", model: [ user : ac ]
+        }else {
+            def user = new User(ac.properties)
+            if (user.validate() && user.save()) {
+                flash.message = "Welcome aboard, ${ac.fullName ?: ac.loginId}"
+                session.user = user
+                redirect(uri: '/')
+            }else {
+                // maybe not unique loginId?
+                flash.message = "login ID already taken by someone else!"
+                render view: "registerForm", model: [ user : ac ]
+            }
+        }
+    }
+
+}
+
+class AccountCommand {
+    String loginId
+    String password
+    String passwordRepeat
+    String fullName
+
+    static constraints = {
+        importFrom User
+        loginId(matches: "[a-zA-Z0-9]+([a-zA-Z0-9])*",
+            validator: {id2 -> return !User.find { loginId == id2}
+
+            })
+        passwordRepeat(nullable: false,
+                validator: { passwd2, ac ->
+                    return passwd2 == ac.password
+                })
+    }
 }

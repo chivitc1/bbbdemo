@@ -9,7 +9,7 @@
             <g:if test="${1 == 1}">
                 <g:link controller="course" action="register" params="${[courseId: course.id]}">Register as attendee</g:link>
             </g:if>
-            <g:if test="${course.room && inet.Course.hasAttendee(session?.user.loginId, course.id)}">
+            <g:if test="${course.room && course?.hasAttendee(session?.user?.loginId, course.id)}">
                 <g:link controller="course" action="joinRoom" params="${[courseId: course.id]}">Join</g:link>
             </g:if>
             </li>

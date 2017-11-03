@@ -38,4 +38,4 @@ else {
     root(ERROR, ['STDOUT'])
 }
 
-root(DEBUG, ["STDOUT"])
+root(ERROR, ["STDOUT"])

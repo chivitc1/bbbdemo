@@ -6,7 +6,7 @@ grails:
 grails:
     profile: web
     codegen:
-        defaultPackage: bbbdemo
+        defaultPackage: inet
     spring:
         transactionManagement:
             proxies: false
@@ -108,37 +108,34 @@ environments:
             password: tomcua
             driverClassName: com.mysql.jdbc.Driver
             dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+            format_sql: true
+            logSql: true
+
     test:
         dataSource:
             dbCreate: create-drop
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+            dbCreate: create-drop
+            url: jdbc:mysql://localhost:3306/bbbdemo?autoReconnect=true&useSSL=false
+            username: root
+            password: tomcua
+            driverClassName: com.mysql.jdbc.Driver
+            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 ---
 spring:
     profiles: development
 bbbconfig:
-#    bbbBaseUrl: http://10.70.0.242/bigbluebutton/api/
-#    shareSecret: 9b6a29aaf5920b1f97213f99c34ffa93
-    bbbBaseUrl: http://servertest3.example.com
-    shareSecret: 11e49bef99ae5b13d4299c6d45210a77
+#    bbbserver: 10.70.0.242
+    bbbserver: video.salemall.xyz
+    bbbport: 80
+    shareSecret: 9b6a29aaf5920b1f97213f99c34ffa93
+    demoserver: video.salemall.xyz
+#    demoport: 8080
+
+#    bbbBaseUrl: http://servertest3.example.com:8080
+#    shareSecret: 11e49bef99ae5b13d4299c6d45210a77
+server:
+    port: 18080
+    #port: 80

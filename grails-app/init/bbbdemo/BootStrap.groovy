@@ -1,7 +1,6 @@
-package bbbdemo
+package inet
 
 import grails.core.GrailsApplication
-import inet.*
 
 class BootStrap {
     GrailsApplication grailsApplication
@@ -9,6 +8,9 @@ class BootStrap {
     def init = { servletContext ->
         environments {
             production {
+                if (!User.count()) {
+                    createSampleData()
+                }
             }
             development {
                 System.out.print(grailsApplication.config.getProperty('grails.gorm.failOnError'))
@@ -36,7 +38,7 @@ class BootStrap {
         def c1 = new Course(name: "Yoga with Yumi").save()
         def c2 = new Course(name: "Marketing for beginers").save()
 
-//        def r1 = new Room(name: "Room 1").save()
+        def r1 = new Room(name: "First Room").save()
 //        def r2 = new Room(name: "Room 2").save()
     }
 }

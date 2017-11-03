@@ -1,7 +1,5 @@
 package inet
 
-import javax.persistence.Transient
-
 class Room {
 
     String name
@@ -10,7 +8,7 @@ class Room {
     String moderatorPW = "654321"
     String attendeePW = "123456"
     Boolean running = false
-
+    Course course
 
     static hasMany = [attendees: User]
 
@@ -19,9 +17,11 @@ class Room {
         startTime nullable: true
         welcome nullable: true
         attendees nullable: true
+        course nullable: true
     }
 
     String toString() {
         return name
     }
+
 }

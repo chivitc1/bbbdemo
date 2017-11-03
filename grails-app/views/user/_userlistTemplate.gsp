@@ -7,9 +7,9 @@
     <tbody>
     <g:each in="${users}" var="user" >
         <tr>
-            <td>${user.loginId}</td>
-            <td>${user.fullName}</td>
-            <td>${user.password}</td>
+            <td>${user?.loginId}</td>
+            <td>${user?.fullName}</td>
+            <td>${user?.password}</td>
         </tr>
     </g:each>
     </tbody>

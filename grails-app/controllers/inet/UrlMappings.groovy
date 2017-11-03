@@ -1,4 +1,4 @@
-package bbbdemo
+package inet
 
 class UrlMappings {
 

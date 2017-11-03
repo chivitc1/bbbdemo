@@ -1,4 +1,4 @@
-package bbbdemo
+package inet
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

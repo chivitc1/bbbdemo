@@ -117,7 +117,7 @@ class CourseController {
             flash.registerMessage = "Exception: course not found"
             return
         }
-        if(course.attendees.contains(user) || course.teacher.loginId == user.loginId){
+        if(course.attendees.contains(user) || course?.teacher?.loginId == user?.loginId){
             flash.registerMessage = "You already in the list"
             return
         }
@@ -130,11 +130,11 @@ class CourseController {
     def joinRoom() {
         def course = Course.get(params.courseId)
         def user = session.user
-        if(!course.room || !user) {
+        if(!course?.room || !user) {
             throw new Exception("BBB: Course not have room or user not login")
         }
 
-        def role = Course.getRole(user.loginId, course)
-        redirect controller:"bbbCall", action: "joinRoom", params: [roomId: course.room.id, role: role]
+        def role = Course.getRole(user?.loginId, course)
+        redirect controller:"bbbCall", action: "joinRoom", params: [roomId: course?.room.id, role: role]
     }
 }

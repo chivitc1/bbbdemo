@@ -14,15 +14,35 @@
             </ul>
         </div>
         <div id="list-course" class="content scaffold-list" role="main">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Course List</h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${courseList}" properties="['name', 'description', 'startingTime', 'teacher', 'room']" />
 
-            <div class="pagination">
-                <g:paginate total="${courseCount ?: 0}" />
-            </div>
+            <g:if test="${courseList.size() > 0}">
+                <table>
+                    <thead>
+                    <th>Name</th>
+                    <th>Starting Date</th>
+                    <th>Teacher</th>
+                    <th>Room</th>
+                    </thead>
+                    <tbody>
+                    <g:each in="${courseList}" var="course">
+                        <tr>
+                            <td><a href="show/${course.id}">${course.name}</a></td>
+
+                            <td>${course.startingTime}</td>
+                            <td>${course.teacher}</td>
+                            <td>${course.room}</td>
+                        </tr>
+                    </g:each>
+                    </tbody>
+                </table>
+            </g:if>
+            <g:else>
+                <p class="alert">Currently has no room</p>
+            </g:else>
         </div>
     </body>
 </html>

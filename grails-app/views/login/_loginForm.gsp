@@ -8,3 +8,5 @@
     <input type="hidden" name="aName" value="${aName }" />
 
 </g:form>
+
+<a href="/login/registerForm">Have no account: go registering</a>

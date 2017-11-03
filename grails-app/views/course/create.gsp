@@ -25,14 +25,36 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
+
+
             <g:form action="save">
                 <fieldset class="form">
-                    <f:all bean="course"/>
+                    <div class="fieldcontain required">
+                        <label for="name">Name</label>
+                        <g:textField name="name" value="${course?.name}"/>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="startingTime">Starting Date</label>
+                        <g:datePicker name="startingTime" value="${course?.startingTime}"/>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="teacher">Teacher</label>
+                        <g:select from="${course?.getAvailableTeachers()}" name="teacher" optionKey="id" optionValue="fullName" noSelection="['': '--Choose a teacher--']"/>
+                    </div>
+
+                    <div class="fieldcontain">
+                        <label for="room">Room</label>
+                        <g:select from="${course?.getAvailableRooms()}" optionKey="id" optionValue="name" name="room" noSelection="['': '--Choose a room--']"/>
+                    </div>
                 </fieldset>
+
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
             </g:form>
+
         </div>
     </body>
 </html>

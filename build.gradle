@@ -11,14 +11,21 @@ buildscript {
 }
 
 version "0.1"
-group "bbbdemo"
+group "inet"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
-apply plugin:"war"
+//apply plugin:"war"
+
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
+
+springBoot {
+    // Enable the creation of a fully
+    // executable archive file.
+    executable = true
+}
 
 repositories {
     mavenLocal()

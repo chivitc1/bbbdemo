@@ -15,11 +15,30 @@ class BbbCallService {
     static final String API_CHECKROOM = "isMeetingRunning"
     static final String API_ENDROOM = "end"
 
-    @Value('${bbbconfig.bbbBaseUrl}')
-    String bbbBaseUrl
 
     @Value('${bbbconfig.shareSecret}')
     String shareSecret
+
+    @Value('${bbbconfig.bbbserver}')
+    String bbbserver
+
+    @Value('${bbbconfig.demoserver}')
+    String demoserver
+
+    @Value('${bbbconfig.bbbport}')
+    String bbbport
+
+    @Value('${server.port}')
+    String serverport
+
+    def getBbbBaseUrl() {
+        def rs = "http://${bbbserver}:${bbbport}"
+        return rs
+    }
+    def getLogoutUrl() {
+        def rs = "http://${demoserver}:${serverport}/login/logout"
+        return rs
+    }
 
     def createRoom(Room room) {
         def returncode
@@ -31,7 +50,8 @@ class BbbCallService {
                           "name": room.name,
                           "welcome": room.welcome,
                           "moderatorPW": room.moderatorPW,
-                          "attendeePW": room.attendeePW]
+                          "attendeePW": room.attendeePW,
+                        "logoutURL": getLogoutUrl()]
             map = prepareRequestParams(API_CREATE, params)
 
             def http = new RESTClient( map.uri )
@@ -150,7 +170,7 @@ class BbbCallService {
             sb.append("&checksum=${urlEncode(checksum)}")
         }
 
-        return ['uri': bbbBaseUrl, 'path': API_BBBPATH + apiName, 'query': params + ['checksum': checksum]]
+        return ['uri': getBbbBaseUrl(), 'path': API_BBBPATH + apiName, 'query': params + ['checksum': checksum]]
     }
 
     def urlEncode(String s) {
